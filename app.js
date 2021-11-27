@@ -31,7 +31,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     function touchControl() {
-        if(!isJumping){
+        if(!isGameOver && !isGame){
+            startGame();
+        }
+
+        if(!isJumping && !isGameOver){
             isJumping = true;
             jump();
         }
