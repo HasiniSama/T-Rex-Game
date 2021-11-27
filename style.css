@@ -1,7 +1,19 @@
-h2,h5{
+h2,h5,h3{
     position: absolute;
     color: gray;
     left: 40%;
+}
+
+h3{
+    top: -5%;
+}
+
+#score{
+    left:90%;
+}
+
+#highscore{
+    left:2%;
 }
 
 h5{

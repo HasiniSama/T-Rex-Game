@@ -2,12 +2,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const dino = document.querySelector(".dino");
     const grid = document.querySelector('.grid');
-    const alert1 = document.getElementById('alert1');
-    const alert2 = document.getElementById('alert2');
+    const alert = document.getElementById('alert');
+    const subalert = document.getElementById('subalert');
+    const score = document.getElementById('score');
+    const highscore = document.getElementById('highscore');
 
     let isJumping = false;
     let gravity = 0.9;
     let isGameOver = false;
+    let theScore = 0;
+    let highScore = 0;
     
     function control(e) {
         if(e.keyCode === 32 && !isGameOver){
@@ -61,11 +65,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
         let timerId = setInterval(function() {
             if (obstaclePosition > 0 && obstaclePosition < 30 && position > 100) {
                 clearInterval(timerId);
-                alert1.innerHTML = 'Game Over';
-                alert2.innerHTML = 'Press any key to continue';
+                alert.innerHTML = 'Game Over';
+                subalert.innerHTML = 'Press any key to continue';
                 isGameOver = true;
                 dino.style.backgroundImage = "url(assets/images/t-rex-dead.png)";
-                
+                if((theScore-1)>highScore){
+                    highScore = theScore-1;
+                    updateHighScore();
+                } 
             }
 
             if(obstaclePosition < 0 ){
@@ -74,22 +81,38 @@ document.addEventListener('DOMContentLoaded', ()=>{
             obstaclePosition -=10;
             obstacle.style.left = obstaclePosition + 'px';
           },20)
-          if (!isGameOver) setTimeout(generateObstacles, randomTime);
+
+        if (!isGameOver) setTimeout(generateObstacles, randomTime);
     }
     generateObstacles();
 
     function restart(){
-        alert1.innerHTML = '';
-        alert2.innerHTML = '';
+        alert.innerHTML = '';
+        subalert.innerHTML = '';
         isGameOver = false;
         isJumping = false;
+        theScore = 0;
         dino.style.backgroundImage = "url(assets/images/t-rex.png)";
+
         //remove all children
         while (grid.firstChild) {
             grid.removeChild(grid.lastChild);
         }
+
     }
 
+    function keepScore(){
+        let timerId = setInterval(function() {
+            if(!isGameOver){
+                score.innerHTML = theScore.toString().padStart(5, '0');
+                theScore ++;
+            } 
+        },100)
+    }
+    keepScore();
 
+    function updateHighScore(){
+        highscore.innerHTML = highScore.toString().padStart(5, '0');
+    }
     
 })
