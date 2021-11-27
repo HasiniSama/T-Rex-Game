@@ -1,19 +1,23 @@
 document.addEventListener('DOMContentLoaded', ()=>{
 
-    const dino = document.getElementById("dino");
+    const dino = document.querySelector(".dino");
     const grid = document.querySelector('.grid');
-    const alert = document.getElementById('alert');
-    
+    const alert1 = document.getElementById('alert1');
+    const alert2 = document.getElementById('alert2');
+
     let isJumping = false;
     let gravity = 0.9;
     let isGameOver = false;
     
     function control(e) {
-        if(e.keyCode === 32){
+        if(e.keyCode === 32 && !isGameOver){
             if(!isJumping){
                 isJumping = true;
                 jump();
             }
+        }
+        if(isGameOver){
+            restart();        
         }
     }
     
@@ -34,7 +38,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
                     position += 27;
                     count--;
                     position = position * gravity;
-                    console.log(position+'hi');
                     dino.style.top = position + 'px';
                 },20)    
             }
@@ -43,7 +46,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
             position -= 10;
             count++;
             position = position * gravity;
-            console.log(position);
             dino.style.top = position + 'px';
         },20)   
     }
@@ -59,12 +61,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
         let timerId = setInterval(function() {
             if (obstaclePosition > 0 && obstaclePosition < 30 && position > 100) {
               clearInterval(timerId);
-              alert.innerHTML = 'Game Over';
+              alert1.innerHTML = 'Game Over';
+              alert2.innerHTML = 'Press any key to continue';
               isGameOver = true;
-    
+                
               //remove all children
               while (grid.firstChild) {
-                console.log(grid.lastChild)
                 grid.removeChild(grid.lastChild);
               }
             }
@@ -78,5 +80,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
           if (!isGameOver) setTimeout(generateObstacles, randomTime);
     }
     generateObstacles();
+
+    function restart(){
+        alert1.innerHTML = '';
+        alert2.innerHTML = '';
+        isGameOver = false;
+        isJumping = false;
+    }
     
 })
