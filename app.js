@@ -24,9 +24,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
             restart();        
         }
     }
+
+    function touchControl() {
+        if(!isJumping){
+            isJumping = true;
+            jump();
+        }
+        if(isGameOver){
+            restart();        
+        }
+    }
     
     document.addEventListener('keyup',control)
-    
+    document.addEventListener('touchstart',touchControl)
+    document.addEventListener('touchend',touchControl)
+
     let position = 150;
     function jump(){
         let count = 0;
