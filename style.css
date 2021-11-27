@@ -1,19 +1,55 @@
-.dino {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background-image: url(t-rex.png);
-    bottom: 0px;
-  }
-  
-.obstacle {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background-image: url(cacti.png);
-    bottom: 0px;
+@font-face {
+    font-family: gameOver;
+    src: url(assets/fonts/game_over.ttf);
 }
-  
+
+h2{
+    position: absolute;
+    color: gray;
+    font-family:gameOver;
+    left: 40%;
+}
+
+
+.game{
+    width: 600px;
+    height: 200px;
+    border: 1px solid #000;
+    margin: auto;
+}
+
+#dino{
+    width: 50px;
+    height: 50px;
+    background-image: url(assets/images/t-rex.png);
+    background-size: 50px 50px;
+    position: relative;
+    top:150px;
+}
+
+.cactus{
+    width: 30px;
+    height: 40px;
+    position: absolute;
+    top: 163px;
+    left:580px;
+
+    background-image: url(assets/images/cacti.png);
+    background-size: 30px 40px;
+
+}
+
+.desert {
+    position: relative;
+    bottom: 0px;
+    background-image: url(assets/images/t-rex-background.png);
+    background-repeat: repeat-x;
+    animation: slideright 600s infinite linear;
+    -webkit-animation: slideright 600s infinite linear;
+    width: 100%;
+    height: 200px;
+}
+
 @keyframes slideright {
     from {
         background-position: 70000%;
@@ -30,15 +66,4 @@
     to {
         background-position: 0%;
     }
-}
-  
-#desert {
-    position: absolute;
-    bottom: 0px;
-    background-image: url('t-rex-background.png');
-    background-repeat: repeat-x;
-    animation: slideright 600s infinite linear;
-    -webkit-animation: slideright 600s infinite linear;
-    width: 100%;
-    height: 200px;
 }
