@@ -10,6 +10,9 @@
         width: 100%;
     }
 
+    #score{
+        left:85% !important;
+    }
 }
 
 .dino{
