@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=>{
 
     const dino = document.querySelector(".dino");
+    const desert = document.querySelector('.desert');
     const grid = document.querySelector('.grid');
     const alert = document.getElementById('alert');
     const subalert = document.getElementById('subalert');
@@ -10,10 +11,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let isJumping = false;
     let gravity = 0.9;
     let isGameOver = false;
+    let isGame = false;
     let theScore = 0;
     let highScore = 0;
     
     function control(e) {
+        if(e.keyCode === 32 && !isGameOver && !isGame){
+            startGame();
+        }
         if(e.keyCode === 32 && !isGameOver){
             if(!isJumping){
                 isJumping = true;
@@ -78,13 +83,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if (obstaclePosition > 0 && obstaclePosition < 30 && position > 100) {
                 clearInterval(timerId);
                 alert.innerHTML = 'Game Over';
-                subalert.innerHTML = 'Press any key to continue';
+                subalert.innerHTML = 'Press any key or tap to continue';
                 isGameOver = true;
                 dino.style.backgroundImage = "url(assets/images/t-rex-dead.png)";
+                desert.style.animation = "";
+                desert.style.webkitAnimation = "";
                 if((theScore-1)>highScore){
                     highScore = theScore-1;
                     updateHighScore();
                 } 
+
             }
 
             if(obstaclePosition < 0 ){
@@ -96,7 +104,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
         if (!isGameOver) setTimeout(generateObstacles, randomTime);
     }
-    generateObstacles();
 
     function restart(){
         alert.innerHTML = '';
@@ -105,6 +112,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         isJumping = false;
         theScore = 0;
         dino.style.backgroundImage = "url(assets/images/t-rex.png)";
+        desert.style.animation = "slideright 600s infinite linear";
+        desert.style.webkitAnimation = "slideright 600s infinite linear";
 
         //remove all children
         while (grid.firstChild) {
@@ -121,10 +130,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
             } 
         },100)
     }
-    keepScore();
 
     function updateHighScore(){
         highscore.innerHTML = highScore.toString().padStart(5, '0');
+    }
+
+    function startGame(){
+        desert.style.animation = "slideright 600s infinite linear";
+        desert.style.webkitAnimation = "slideright 600s infinite linear";
+        generateObstacles();
+        keepScore();
+
     }
     
 })

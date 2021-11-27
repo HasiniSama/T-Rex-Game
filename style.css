@@ -41,8 +41,6 @@
     bottom: 0px;
     background-image: url(assets/images/t-rex-background.png);
     background-repeat: repeat-x;
-    animation: slideright 600s infinite linear;
-    -webkit-animation: slideright 600s infinite linear;
     width: 100%;
     height: 200px;
 }
@@ -90,5 +88,5 @@ h3{
 
 h5{
     top:20%;
-    left: 38%;
+    left: 39%;
 }
