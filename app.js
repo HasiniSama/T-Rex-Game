@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     
     function generateObstacles() {
-        let randomTime = Math.random() * 4000;
+        let randomTime = Math.random() * 16000;
         let obstaclePosition = 570;
         const obstacle = document.createElement('div');
         if (!isGameOver) obstacle.classList.add('cactus');
