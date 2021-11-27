@@ -1,32 +1,15 @@
-h2,h5,h3{
-    position: absolute;
-    color: gray;
-    left: 40%;
-}
-
-h3{
-    top: -5%;
-}
-
-#score{
-    left:90%;
-}
-
-#highscore{
-    left:2%;
-}
-
-h5{
-    top:20%;
-    left: 38%;
-}
-
-
 .game{
     width: 600px;
     height: 200px;
     border: 1px solid #000;
     margin: auto;
+}
+
+@media (max-width: 600px) {
+	.game{
+        width: 100%;
+    }
+
 }
 
 .dino{
@@ -77,4 +60,32 @@ h5{
     to {
         background-position: 0%;
     }
+}
+
+h2,h5,h3{
+    position: absolute;
+    color: gray;
+    left: 40%;
+}
+
+h6{
+    text-align: center;
+    color: gray;
+}
+
+h3{
+    top: -5%;
+}
+
+#score{
+    left:90%;
+}
+
+#highscore{
+    left:2%;
+}
+
+h5{
+    top:20%;
+    left: 38%;
 }
