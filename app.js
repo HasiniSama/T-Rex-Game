@@ -60,15 +60,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     
         let timerId = setInterval(function() {
             if (obstaclePosition > 0 && obstaclePosition < 30 && position > 100) {
-              clearInterval(timerId);
-              alert1.innerHTML = 'Game Over';
-              alert2.innerHTML = 'Press any key to continue';
-              isGameOver = true;
+                clearInterval(timerId);
+                alert1.innerHTML = 'Game Over';
+                alert2.innerHTML = 'Press any key to continue';
+                isGameOver = true;
+                dino.style.backgroundImage = "url(assets/images/t-rex-dead.png)";
                 
-              //remove all children
-              while (grid.firstChild) {
-                grid.removeChild(grid.lastChild);
-              }
             }
 
             if(obstaclePosition < 0 ){
@@ -86,6 +83,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         alert2.innerHTML = '';
         isGameOver = false;
         isJumping = false;
+        dino.style.backgroundImage = "url(assets/images/t-rex.png)";
+        //remove all children
+        while (grid.firstChild) {
+            grid.removeChild(grid.lastChild);
+        }
     }
+
+
     
 })
