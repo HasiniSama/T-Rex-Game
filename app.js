@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     
     function generateObstacles() {
-        let randomTime = Math.random() * 8000;
+        let randomTime = Math.random() * 4000;
         let obstaclePosition = 570;
         const obstacle = document.createElement('div');
         if (!isGameOver) obstacle.classList.add('cactus');
@@ -90,6 +90,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
         obstacle.style.left = obstaclePosition + 'px';
     
         let timerId = setInterval(function() {
+            if(isGameOver){
+                clearInterval(timerId);
+            }
             if (obstaclePosition > 0 && obstaclePosition < 30 && position > 100) {
                 clearInterval(timerId);
                 alert.innerHTML = 'Game Over';
@@ -101,15 +104,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 if((theScore-1)>highScore){
                     highScore = theScore-1;
                     updateHighScore();
-                } 
-
+                }        
             }
 
-            if(obstaclePosition < -100 ){
-                obstacle.classList.remove('cactus');
+            if(obstaclePosition < -20 ){
+                //grid.removeChild(grid.firstChild);
+                clearInterval(timerId);
             }
-            obstaclePosition -=10;
-            obstacle.style.left = obstaclePosition + 'px';
+            if (!isGameOver){
+                obstaclePosition -=10;
+                obstacle.style.left = obstaclePosition + 'px';
+            }     
           },20)
 
         if (!isGameOver) setTimeout(generateObstacles, randomTime);
@@ -128,6 +133,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         while (grid.firstChild) {
             grid.removeChild(grid.lastChild);
         }
+
+        generateObstacles();
 
     }
 
