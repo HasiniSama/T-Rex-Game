@@ -16,18 +16,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let highScore = 0;
     
     function control(e) {
-        if(e.keyCode === 32 && !isGameOver && !isGame){
-            startGame();
-        }
-        if(e.keyCode === 32 && !isGameOver){
+        if(e.keyCode === 32){
+
+            if(!isGame){
+                isGame = true;
+                startGame();
+            }
+
+            if(isGameOver){
+                isGameOver = false;
+                restart();        
+            }
+
             if(!isJumping){
                 isJumping = true;
                 jump();
             }
+         
         }
-        if(isGameOver){
-            restart();        
-        }
+        
     }
 
     function touchControl() {
@@ -46,7 +53,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     
     document.addEventListener('keyup',control)
     document.addEventListener('touchstart',touchControl)
-    document.addEventListener('touchend',touchControl)
 
     let position = 150;
     function jump(){
@@ -76,7 +82,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     
     function generateObstacles() {
-        let randomTime = Math.random() * 16000;
+        let randomTime = Math.random() * 8000;
         let obstaclePosition = 570;
         const obstacle = document.createElement('div');
         if (!isGameOver) obstacle.classList.add('cactus');
@@ -87,7 +93,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if (obstaclePosition > 0 && obstaclePosition < 30 && position > 100) {
                 clearInterval(timerId);
                 alert.innerHTML = 'Game Over';
-                subalert.innerHTML = 'Press any key or tap to continue';
+                subalert.innerHTML = 'Press space or tap to continue';
                 isGameOver = true;
                 dino.style.backgroundImage = "url(assets/images/t-rex-dead.png)";
                 desert.style.animation = "";
@@ -99,7 +105,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
             }
 
-            if(obstaclePosition < 0 ){
+            if(obstaclePosition < -100 ){
                 obstacle.classList.remove('cactus');
             }
             obstaclePosition -=10;
@@ -112,7 +118,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     function restart(){
         alert.innerHTML = '';
         subalert.innerHTML = '';
-        isGameOver = false;
         isJumping = false;
         theScore = 0;
         dino.style.backgroundImage = "url(assets/images/t-rex.png)";
@@ -142,6 +147,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     function startGame(){
         desert.style.animation = "slideright 600s infinite linear";
         desert.style.webkitAnimation = "slideright 600s infinite linear";
+        alert.innerHTML = '';
+        subalert.innerHTML = '';
         generateObstacles();
         keepScore();
 
