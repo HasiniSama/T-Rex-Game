@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let isGame = false;
     let theScore = 0;
     let highScore = 0;
+    let difficulty = 4000;
+    let speed = 5;
     
     function control(e) {
         if(e.keyCode === 32){
@@ -85,7 +87,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     
     function generateObstacles() {
-        let randomTime = Math.random() * 4000;
+        let randomTime = (Math.random() * difficulty)+500;
+        console.log(randomTime)
         let obstaclePosition = 570;
         const obstacle = document.createElement('div');
         if (!isGameOver) obstacle.classList.add('cactus');
@@ -115,10 +118,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 clearInterval(timerId);
             }
             if (!isGameOver){
-                obstaclePosition -=10;
+                obstaclePosition -= speed;
                 obstacle.style.left = obstaclePosition + 'px';
             }     
-          },20)
+        },20)
 
         if (!isGameOver) setTimeout(generateObstacles, randomTime);
     }
@@ -128,6 +131,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         subalert.innerHTML = '';
         isJumping = false;
         theScore = 0;
+        difficulty = 4000;
         dino.style.backgroundImage = "url(assets/images/t-rex.png)";
         desert.style.animation = "slideright 600s infinite linear";
         desert.style.webkitAnimation = "slideright 600s infinite linear";
@@ -138,7 +142,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
 
         generateObstacles();
-
     }
 
     function keepScore(){
@@ -146,6 +149,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if(!isGameOver){
                 score.innerHTML = theScore.toString().padStart(5, '0');
                 theScore ++;
+            }
+            if(theScore%100 == 0){
+                difficulty -= 100;
+            } 
+
+            if(theScore%200 == 0 && speed != 10){
+                speed++;
             } 
         },100)
     }
@@ -161,7 +171,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         subalert.innerHTML = '';
         generateObstacles();
         keepScore();
-
     }
     
 })
